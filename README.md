@@ -1,2 +1,2 @@
 # minitootip
-The tooltip solution for minimalistas
+The tooltip solution for minimalists
