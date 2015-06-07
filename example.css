@@ -1,7 +1,7 @@
 /* Example style */
 *{box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;}
-body{font-family:sans-serif;text-align:center;padding:90px 0;color:#333;}
-main{width:100%;max-width:512px;margin:auto;border:1px #ddd solid;}
+body{font-family:sans-serif;text-align:center;padding:10vh 0;color:#333;}
+main{width:100%;max-width:512px;margin:auto;border:1px #ddd solid;border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px;}
 article{padding:20px 0;border-bottom:1px #ddd solid;}
 article:last-child{border:none;}
 span{font-size:1.8em;}
@@ -17,6 +17,9 @@ span{font-size:1.8em;}
   font-family:sans-serif;
   font-size:.8em;
   font-weight:lighter;
+  border-radius:2px;
+  -webkit-border-radius:2px;
+  -moz-border-radius:2px;
 }
 #minitooltip:after{
   content:'';

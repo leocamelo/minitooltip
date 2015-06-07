@@ -14,12 +14,13 @@
   document.body.appendChild(tip);
 
   // add events to show/hide tips
-  tooltips.forEach(function(tooltip){  
+  tooltips.forEach(function(tooltip){
     tooltip.addEventListener('mouseenter', function(){
+      var rect = this.getBoundingClientRect();
       tip.textContent = this.dataset.tip;
       tip.style.display = 'block';
-      tip.style.top = this.offsetTop - 40 + 'px';
-      tip.style.left = (this.offsetLeft + this.offsetWidth / 2) - tip.offsetWidth / 2 + 'px';
+      tip.style.top = rect.top - 40 + 'px';
+      tip.style.left = (rect.left + rect.width / 2) - tip.offsetWidth / 2 + 'px';
     });
     tooltip.addEventListener('mouseleave', function(){
       tip.style.display = 'none';
