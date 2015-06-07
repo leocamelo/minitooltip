@@ -5,31 +5,3 @@ main{width:100%;max-width:512px;margin:auto;border:1px #ddd solid;border-radius:
 article{padding:20px 0;border-bottom:1px #ddd solid;}
 article:last-child{border:none;}
 span{font-size:1.8em;}
-/* MiniTooltip style */
-#minitooltip{
-  display:none;
-  position:fixed;
-  z-index:9;
-  pointer-events:none;
-  background-color:#333;
-  color:#fff;
-  padding:8px;
-  font-family:sans-serif;
-  font-size:.8em;
-  font-weight:lighter;
-  border-radius:2px;
-  -webkit-border-radius:2px;
-  -moz-border-radius:2px;
-}
-#minitooltip:after{
-  content:'';
-  width:0;
-  height:0;
-  border-top:8px #333 solid;
-  border-left:8px transparent solid;
-  border-right:8px transparent solid;
-  position:absolute;
-  top:100%;
-  left:50%;
-  margin-left:-8px;
-}
