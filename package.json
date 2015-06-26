@@ -1,6 +1,6 @@
 {
   "name": "minitooltip",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The tooltip solution for minimalists",
   "main": "minitooltip.min.js",
   "repository": {
