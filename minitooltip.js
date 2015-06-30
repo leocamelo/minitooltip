@@ -33,18 +33,21 @@
       tip.style.display = 'block';
 
       // suport to positions
-      var position = 'u', dataP = this.dataset.tipPosition;
+      var position = 'u',
+      dataP = this.dataset.tipPosition,
+      rect = this.getBoundingClientRect();
+      console.log(rect);
       if(dataP && ['u', 'd'].indexOf(dataP.charAt(0)) != -1)
       position = dataP.charAt(0);
-      else if(this.getBoundingClientRect().top - 40 <= 0)
+      else if(rect.top - 40 <= 0)
       position = 'd';
       if(position == 'u')
-      tip.style.top = this.offsetTop - tip.offsetHeight - 9 + 'px';
+      tip.style.top = rect.top + window.scrollY - tip.offsetHeight - 9 + 'px';
       else if(position == 'd')
-      tip.style.top = this.offsetTop + this.offsetHeight + 9 + 'px';
+      tip.style.top = rect.top + window.scrollY + rect.height + 9 + 'px';
       tip.dataset.p = position;
 
-      tip.style.left = (this.offsetLeft + this.offsetWidth / 2) - tip.offsetWidth / 2 + 'px';
+      tip.style.left = (rect.left + rect.width / 2) - tip.offsetWidth / 2 + 'px';
     };
     tooltip.onmouseout = function(){
       tip.style.display = 'none';
