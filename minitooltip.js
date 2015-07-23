@@ -27,11 +27,11 @@
     }
 
     // set the content of tip and show it
-    tip.textContent = tooltip.dataset.tip;
+    tip.textContent = tooltip.getAttribute('data-tip');
 
     // suport to positions
     var position = 'u', top,
-    dataP = tooltip.dataset.tipPosition,
+    dataP = tooltip.getAttribute('data-tip-position'),
     rect = tooltip.getBoundingClientRect();
     if(dataP && ['u', 'd'].indexOf(dataP.charAt(0)) != -1)
     position = dataP.charAt(0);
@@ -42,7 +42,7 @@
     else if(position == 'd')
     top = rect.top + window.scrollY + rect.height + 9 + 'px';
     tip.style.top = top;
-    tip.dataset.p = position;
+    tip.setAttribute('data-p', position);
 
     // align horizontal
     tip.style.left = (rect.left + rect.width / 2) - tip.offsetWidth / 2 + 'px';
