@@ -1,7 +1,7 @@
-(function(){
+(function(doc){
 
   // create the tip element and her style
-  var tip = document.createElement('div'), style = document.createElement('style'),
+  var tip = doc.createElement('div'), style = doc.createElement('style'),
   css = '#tip{display:block;opacity:0;position:absolute;z-index:9999;color:#fff;text-align:center;'
   +'background-color:#333;padding:8px;font-family:sans-serif;font-size:.8em;font-weight:lighter;'
   +'border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px;pointer-events:none;}'
@@ -10,14 +10,14 @@
   +'border-top:8px #333 solid;}#tip[data-p=d]:after{border-bottom:8px #333 solid;bottom:100%;}';
   tip.id = 'tip';
   style.type = 'text/css';
-  style.appendChild(document.createTextNode(css));
+  style.appendChild(doc.createTextNode(css));
 
   // append tip and style to document
-  document.head.appendChild(style);
-  document.body.appendChild(tip);
+  doc.head.appendChild(style);
+  doc.body.appendChild(tip);
 
   // add events to show tips
-  document.onmouseover = function(e){
+  doc.onmouseover = function(e){
 
     // check if the element is a tooltip
     var tooltip = e.target;
@@ -51,4 +51,4 @@
     tip.style.opacity = 1;
   };
 
-})();
+})(document);
