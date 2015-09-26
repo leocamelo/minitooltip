@@ -8,7 +8,7 @@
   +'#tip:after{content:"";width:0;height:0;left:50%;border-left:8px transparent solid;margin-left:-8px;'
   +'border-right:8px transparent solid;position:absolute;}#tip[data-p=u]:after{top:100%;'
   +'border-top:8px #333 solid;}#tip[data-p=d]:after{border-bottom:8px #333 solid;bottom:100%;}',
-  dataPosition = 'data-tip-position', dataTip = 'data-tip', u = 'u', d = 'd',
+  dataPosition = 'data-tip-position', dataTip = 'data-tip', u = 'u', d = 'd', _ = ' ', px = 'px',
   tipsFromTitle = function(els){
     for(var i = 0, len = els.length; i < len; i++){
       if(els[i].title != '' && !els[i].getAttribute(dataTip))
@@ -16,7 +16,7 @@
     }
   },
   hasClass = function(el, cl){
-    return (' ' + el.className + ' ').indexOf(' ' + cl + ' ') > -1;
+    return (_ + el.className + _).indexOf(_ + cl + _) > -1;
   };
 
   // set tip element and her style attributes
@@ -65,14 +65,14 @@
     else if(rect.top - 40 <= 0)
     position = d;
     if(position == u)
-    top = rect.top + window.scrollY - tip.offsetHeight - 9 + 'px';
+    top = rect.top + window.scrollY - tip.offsetHeight - 9 + px;
     else if(position == d)
-    top = rect.top + window.scrollY + rect.height + 9 + 'px';
+    top = rect.top + window.scrollY + rect.height + 9 + px;
     tip.style.top = top;
     tip.setAttribute('data-p', position);
 
     // align horizontal
-    tip.style.left = (rect.left + rect.width / 2) - tip.offsetWidth / 2 + 'px';
+    tip.style.left = (rect.left + rect.width / 2) - tip.offsetWidth / 2 + px;
 
     // show it!
     tip.style.opacity = 1;
