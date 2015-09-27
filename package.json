@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "The tooltip solution for minimalists",
   "main": "minitooltip.min.js",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leonardocamelo/minitooltip.git"
