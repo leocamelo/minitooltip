@@ -1,6 +1,6 @@
 (function(doc){
 
-  // create the tip element, her style and others helpers
+  // create the tip element, his style and others helpers
   var body = doc.body, tip = doc.createElement('div'), style = doc.createElement('style'),
   css = '#tip{display:block;opacity:0;position:absolute;z-index:9999;color:#fff;text-align:center;'
   +'background-color:#333;padding:8px;font-family:sans-serif;font-size:.8em;font-weight:lighter;'
@@ -10,7 +10,7 @@
   +'border-top:8px #333 solid;}#tip[data-p=d]:after{border-bottom:8px #333 solid;bottom:100%;}',
   dataPosition = 'data-tip-position', dataTip = 'data-tip', u = 'u', d = 'd', _ = ' ', px = 'px',
   tipsFromTitle = function(els){
-    for(var i = 0, len = els.length; i < len; i++){
+    for(i = 0, len = els.length; i < len; i++){
       if(els[i].title != '' && !els[i].getAttribute(dataTip))
       els[i].setAttribute(dataTip, els[i].title);
     }
@@ -19,7 +19,7 @@
     return (_ + el.className + _).indexOf(_ + cl + _) > -1;
   };
 
-  // set tip element and her style attributes
+  // set tip element and style attributes
   tip.id = 'tip';
   style.type = 'text/css';
   style.appendChild(doc.createTextNode(css));
@@ -45,7 +45,7 @@
       return false;
     }
 
-    // set the content of tip and show it
+    // set the content of tip
     tip.textContent = tooltip.getAttribute(dataTip);
 
     // check for tips class position
