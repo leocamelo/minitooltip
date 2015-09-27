@@ -12,5 +12,12 @@
     "tooltip",
     "javascript"
   ],
-  "homepage": "https://github.com/leonardocamelo/minitooltip"
+  "homepage": "https://github.com/leonardocamelo/minitooltip",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
