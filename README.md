@@ -1,5 +1,4 @@
 # minitooltip
-*v0.1.2*
 A minimalist tooltip solution, perfect for fast and beautiful websites
 
 - **Lightweight** - Only 1.6kb in minified version
