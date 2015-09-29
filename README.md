@@ -1,9 +1,10 @@
-# minitooltip *v0.1.2*
-A minimalists tooltip solution, perfect for fast and beautiful websites
+# minitooltip
+*v0.1.2*
+A minimalist tooltip solution, perfect for fast and beautiful websites
 
 - **Lightweight** - Only 1.6kb in minified version
 - **Independent** - Don't require jQuery or any other library
-- **Simplest** - Call monitooltip and done! You got tooltips
+- **Simplest** - Call minitooltip and done! You got tooltips
 
 ## Installing
 

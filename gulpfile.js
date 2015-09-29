@@ -5,7 +5,7 @@ var webserver = require('gulp-webserver');
 var js = 'minitooltip.js';
 
 gulp.task('compress', function(){
-  return gulp.src(js)
+  gulp.src(js)
   .pipe(uglify())
   .pipe(rename('minitooltip.min.js'))
   .pipe(gulp.dest('./'));
