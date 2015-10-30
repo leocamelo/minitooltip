@@ -7,7 +7,7 @@ var js = 'minitooltip.js';
 gulp.task('compress', function(){
   gulp.src(js)
   .pipe(uglify())
-  .pipe(rename('minitooltip.min.js'))
+  .pipe(rename({ extname: '.min.js' }))
   .pipe(gulp.dest('./'));
 });
 

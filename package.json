@@ -1,7 +1,7 @@
 {
   "name": "minitooltip",
   "main": "minitooltip.js",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "The tooltip solution for minimalists",
   "license": "MIT",
   "author": "Leonardo Camelo <leonardocamelo.nave@gmail.com>",
