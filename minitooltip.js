@@ -10,7 +10,7 @@
   +'border-top:8px #333 solid;}#tip[data-p=d]:after{border-bottom:8px #333 solid;bottom:100%;}',
   dataPosition = 'data-tip-position', dataTip = 'data-tip', u = 'u', d = 'd', _ = ' ', px = 'px';
   function tipsFromTitle(els){
-    for(i = 0, len = els.length; i < len; i++){
+    for(i = 0, l = els.length; i < l; i++){
       if(els[i].title != '' && !els[i].getAttribute(dataTip))
       els[i].setAttribute(dataTip, els[i].title);
     }
