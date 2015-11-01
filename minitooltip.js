@@ -18,6 +18,11 @@
   function hasClass(el, cl){
     return (_ + el.className + _).indexOf(_ + cl + _) > -1;
   }
+  function recursiveTipped(target){
+    if(!target || target == body) return false;
+    else if(target.getAttribute(dataTip)) return target;
+    else return recursiveTipped(target.parentElement);
+  }
 
   // set tip element and style attributes
   tip.id = 'tip';
@@ -39,11 +44,15 @@
   doc.onmouseover = function(e){
 
     // check if any element is a tooltip
-    tooltip = false;
-    for(i = 0, l = e.path.length; i < l - 4; i++){
-      if(e.path[i].getAttribute(dataTip)){
-        tooltip = e.path[i];
-        break;
+    if(typeof e.path == 'undefined')
+    tooltip = recursiveTipped(e.target);
+    else{
+      tooltip = false;
+      for(i = 0, l = e.path.length; i < l - 4; i++){
+        if(e.path[i].getAttribute(dataTip)){
+          tooltip = e.path[i];
+          break;
+        }
       }
     }
     if(!tooltip){
