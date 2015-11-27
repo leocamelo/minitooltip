@@ -1,12 +1,12 @@
-/*! MiniTooltip v0.1.5 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
+/*! MiniTooltip v0.1.6 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
 
 (function(doc){
 
   // create the tip element, his style and others helpers
   var tooltip, body = doc.body, tip = doc.createElement('div'), style = doc.createElement('style'),
   css = '#tip{display:block;opacity:0;position:absolute;z-index:9999;color:#fff;text-align:center;'
-  +'background-color:#333;padding:7px;font-family:sans-serif;font-size:12px;font-weight:lighter;'
-  +'border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px;pointer-events:none;'
+  +'background-color:#333;padding:6px;font-family:sans-serif;font-size:12px;font-weight:lighter;'
+  +'border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px;pointer-events:none;top:0;'
   +'box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;}#tip:after{'
   +'content:"";width:0;height:0;left:50%;border-left:8px transparent solid;margin-left:-8px;'
   +'border-right:8px transparent solid;position:absolute;}#tip[data-p=u]:after{top:100%;'
@@ -14,8 +14,10 @@
   dataPosition = 'data-tip-position', dataTip = 'data-tip', u = 'u', d = 'd', _ = ' ', px = 'px';
   function tipsFromTitle(els){
     for(var i = 0, l = els.length; i < l; i++){
-      if(els[i].title != '' && !els[i].getAttribute(dataTip))
-      els[i].setAttribute(dataTip, els[i].title);
+      if(els[i].title != '' && !els[i].getAttribute(dataTip)){
+        els[i].setAttribute(dataTip, els[i].title);
+        els[i].removeAttribute('title');
+      }
     }
   }
   function hasClass(el, cl){
