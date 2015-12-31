@@ -7,7 +7,7 @@
   +'background-color:#333;padding:6px;font-family:sans-serif;font-size:12px;font-weight:lighter;'
   +'border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px;pointer-events:none;top:0;'
   +'box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box}#tip:after{'
-  +'content:"";width:0;height:0;left:50%;border-left:8px transparent solid;margin-left:-8px;'
+  +'content:"";width:0;height:0;left:50%;border-left:8px solid transparent;margin-left:-8px;'
   +'border-right:8px solid transparent;position:absolute}#tip[data-p=u]:after{top:100%;'
   +'border-top:8px solid #333}#tip[data-p=d]:after{border-bottom:8px solid #333;bottom:100%}',
   dataTipPosition = 'data-tip-position', dataTip = 'data-tip';
@@ -54,7 +54,7 @@
       tooltip = recursiveTipped(e.target);
     }else{
       tooltip = false;
-      for(var i = 0, l = e.path.length; i < l - 4; i++){
+      for(var i = 0, l = e.path.length - 4; i < l; i++){
         if(e.path[i].getAttribute(dataTip)){
           tooltip = e.path[i];
           break;
