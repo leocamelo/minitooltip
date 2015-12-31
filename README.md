@@ -7,14 +7,14 @@ A minimalist tooltip solution, perfect for fast and beautiful websites
 
 ## Installing
 
-### Bower
-```bash
-$ bower install minitooltip --save
-```
-
 ### npm
 ```bash
 $ npm install minitooltip --save
+```
+
+### Bower
+```bash
+$ bower install minitooltip --save
 ```
 
 ### manual
@@ -25,7 +25,7 @@ $ npm install minitooltip --save
 ## Getting Started
 
 ### The simplest way
-Put the 'minitooltip' class in your body tag, and all titles attributes will be transformed into tooltips
+Put the 'minitooltip' class in your body tag, and all title attributes will be transformed into tooltips
 ```html
 <body class="minitooltip">
   <h1 title="A tooltip here">Very simple!</h1>
@@ -33,17 +33,18 @@ Put the 'minitooltip' class in your body tag, and all titles attributes will be 
 ```
 
 ### Setup with classes
-All elements with 'tip' class with title attribute will receive tooltips
+All elements with 'tip' class and title attribute will receive tooltips
 ```html
 <h1 class="tip" title="I'm a tooltip!">Another simple way</h1>
+<h2 class="tip tip-down" title="YES!">A tooltip with arbitrary position</h2>
 ```
 
 ### Setup with data-attributes
-If you want, it is possible to work with data-attributes to get more options
+If you want, it is also possible to work with data-attributes
 ```html
 <ul>
   <li data-tip="HEY">A tooltip without title</li>
-  <li data-tip="HO" data-tip-position="down">A tooltip with arbitrary position</li>
+  <li data-tip="HO" data-tip-position="down">Another arbitrary position</li>
 </ul>
 ```
 

@@ -1,11 +1,11 @@
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
-var rename = require('gulp-rename')
+var rename = require('gulp-rename');
 var webserver = require('gulp-webserver');
-var js = 'minitooltip.js';
+var src = 'minitooltip.js';
 
-gulp.task('compress', function(){
-  gulp.src(js)
+gulp.task('uglify', function(){
+  gulp.src(src)
   .pipe(uglify({ preserveComments: 'license' }))
   .pipe(rename({ extname: '.min.js' }))
   .pipe(gulp.dest('./'));
@@ -20,6 +20,6 @@ gulp.task('webserver', function() {
   }));
 });
 
-gulp.task('default', ['compress', 'webserver'], function(){
-  gulp.watch(js, ['compress']);
+gulp.task('default', ['uglify', 'webserver'], function(){
+  gulp.watch(src, ['uglify']);
 });
