@@ -1,7 +1,7 @@
 # minitooltip
 A minimalist tooltip solution, perfect for fast and beautiful websites
 
-- **Lightweight** - Only 1.9kb in minified version
+- **Lightweight** - Only 2KB in minified version
 - **Independent** - Don't require jQuery or any other library
 - **Simplest** - Call minitooltip and done! You got tooltips
 
@@ -25,7 +25,7 @@ $ bower install minitooltip --save
 ## Getting Started
 
 ### The simplest way
-Put the 'minitooltip' class in your body tag, and all title attributes will be transformed into tooltips
+Put the 'minitooltip' class on your body tag, and all title attributes will be transformed into tooltips
 ```html
 <body class="minitooltip">
   <h1 title="A tooltip here">Very simple!</h1>
@@ -46,6 +46,31 @@ If you want, it is also possible to work with data-attributes
   <li data-tip="HEY">A tooltip without title</li>
   <li data-tip="HO" data-tip-position="down">Another arbitrary position</li>
 </ul>
+```
+
+## Stying
+
+### Setting the global theme
+The default global theme is Dark, but you can change it adding the 'minitooltip-light' class on your body tag
+```html
+<body class="minitooltip-light">
+  <h1 data-tip="A dark website">With a light tooltip</h1>
+</body>
+```
+
+### Setting a single tooltip theme
+You can set the theme of a single tooltip with the classes 'tooltip-dark' and 'tooltip-light'. And, if you prefer, can define this with data attributes
+```html
+<h1 class="tip tip-dark" title="A dark tip here">foo</h1>
+<h2 data-tip="A light tip here" data-tip-theme="light">bar</h2>
+```
+
+### Hacking the themes
+The minitooltip themes is just css, and you can override his styles with more css
+```css
+#tip{ background: red !important; }
+#tip[data-tip-position=up]:after{ border-top-color: red !important; }
+#tip[data-tip-position=down]:after{ border-bottom-color: red !important; }
 ```
 
 ## Contributing

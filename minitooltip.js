@@ -1,20 +1,33 @@
-/*! MiniTooltip v0.1.7 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
+/*! MiniTooltip v0.2.0 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
 
-(function(doc){
-  // create the tip element, his style and others helpers
-  var tooltip, body = doc.body, tip = doc.createElement('div'), style = doc.createElement('style'),
-  css = '#tip{display:block;opacity:0;position:absolute;z-index:9999;color:#fff;text-align:center;'
-  +'background-color:#333;padding:6px;font-family:sans-serif;font-size:12px;font-weight:lighter;'
-  +'border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px;pointer-events:none;top:0;'
-  +'box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box}#tip:after{'
-  +'content:"";width:0;height:0;left:50%;border-left:8px solid transparent;margin-left:-8px;'
-  +'border-right:8px solid transparent;position:absolute}#tip[data-p=u]:after{top:100%;'
-  +'border-top:8px solid #333}#tip[data-p=d]:after{border-bottom:8px solid #333;bottom:100%}',
-  dataTipPosition = 'data-tip-position', dataTip = 'data-tip';
+(function(win, doc){
+  var tooltip;
+  var rect;
+  var position;
+  var body = doc.body;
+  var tip = doc.createElement('div');
+  var style = doc.createElement('style');
+  var css = '#tip{display:block;opacity:0;position:absolute;top:0;z-index:9999;' +
+  'text-align:center;padding:6px;font-family:sans-serif;font-size:12px;font-weight:lighter;' +
+  'pointer-events:none;border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px;' +
+  'box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box}' +
+  '#tip[data-tip-theme=dark]{background:#333;color:#fff}#tip[data-tip-theme=light]' +
+  '{background:#eee;color:#222}#tip:after{content:"";width:0;height:0;position:absolute;' +
+  'left:50%;margin-left:-8px;border:8px solid transparent}#tip[data-tip-position=up]:after' +
+  '{top:100%}#tip[data-tip-position=up][data-tip-theme=dark]:after{border-top-color:#333}' +
+  '#tip[data-tip-position=up][data-tip-theme=light]:after{border-top-color:#eee}' +
+  '#tip[data-tip-position=down]:after{bottom:100%}#tip[data-tip-position=down]' +
+  '[data-tip-theme=dark]:after{border-bottom-color:#333}#tip[data-tip-position=down]' +
+  '[data-tip-theme=light]:after{border-bottom-color:#eee}';
+  var globalTheme = hasClass(body, 'minitooltip-light') ? 'light' : 'dark';
+
+  function getTip(el){
+    return el.getAttribute('data-tip');
+  }
   function tipsFromTitle(els){
     for(var i = 0, l = els.length; i < l; i++){
-      if(els[i].title != '' && !els[i].getAttribute(dataTip)){
-        els[i].setAttribute(dataTip, els[i].title);
+      if(els[i].title && !getTip(els[i])){
+        els[i].setAttribute('data-tip', els[i].title);
         els[i].removeAttribute('title');
       }
     }
@@ -23,70 +36,56 @@
     return (' ' + el.className + ' ').indexOf(' ' + cl + ' ') > -1;
   }
   function recursiveTipped(target){
-    if(!target || target == body) return false;
-    else if(target.getAttribute(dataTip)) return target;
-    else return recursiveTipped(target.parentElement);
+    return !target || target == body ? false : getTip(target) ? target : recursiveTipped(target.parentElement);
   }
 
-  // set tip element and style attributes
   tip.id = 'tip';
   style.type = 'text/css';
   style.media = 'screen';
   style.appendChild(doc.createTextNode(css));
 
-  // append tip and style to document
   doc.getElementsByTagName('head')[0].appendChild(style);
   body.appendChild(tip);
 
-  // check for simplest setup
-  if(hasClass(body, 'minitooltip')){
-    tipsFromTitle(doc.getElementsByTagName('*'));
-  }
+  if(hasClass(body, 'minitooltip')) tipsFromTitle(doc.getElementsByTagName('*'));
 
-  // check for tip class
   tipsFromTitle(doc.getElementsByClassName('tip'));
 
-  // add events to show tips
   doc.onmouseover = function(e){
-
-    // check if any element is a tooltip
+    // Check if it's a tooltip
     if(typeof e.path == 'undefined'){
       tooltip = recursiveTipped(e.target);
     }else{
       tooltip = false;
       for(var i = 0, l = e.path.length - 4; i < l; i++){
-        if(e.path[i].getAttribute(dataTip)){
+        if(getTip(e.path[i])){
           tooltip = e.path[i];
           break;
         }
       }
     }
+
+    // Guard clause
     if(!tooltip){
       tip.style.opacity = 0;
       return false;
     }
 
-    // set the content of tip
-    tip.textContent = tooltip.getAttribute(dataTip);
+    tip.textContent = getTip(tooltip);
+    rect = tooltip.getBoundingClientRect();
 
-    // check for tips class position
-    if(!tooltip.getAttribute(dataTipPosition)){
-      if(hasClass(tooltip, 'tip-down'))
-      tooltip.setAttribute(dataTipPosition, 'down');
-      else if(hasClass(tooltip, 'tip-up'))
-      tooltip.setAttribute(dataTipPosition, 'up');
-    }
+    // Vertical position
+    position = tooltip.getAttribute('data-tip-position') || hasClass(tooltip, 'tip-down') ? 'down' : hasClass(tooltip, 'tip-up') ? 'up' : rect.top - 40 <= 0 ? 'down' : 'up';
+    tip.style.top = rect.top + (position == 'up' ? win.scrollY - tip.offsetHeight - 9 : win.scrollY + rect.height + 9) + 'px';
+    tip.setAttribute('data-tip-position', position);
 
-    // suport to positions
-    var dataPosition = tooltip.getAttribute(dataTipPosition), rect = tooltip.getBoundingClientRect(),
-    position = dataPosition && ['u', 'd'].indexOf(dataPosition.charAt(0)) != -1 ? dataPosition.charAt(0) : rect.top - 40 <= 0 ? 'd' : 'u';
-    tip.style.top = rect.top + (position == 'u' ? window.scrollY - tip.offsetHeight - 9 : window.scrollY + rect.height + 9) + 'px';
-    tip.setAttribute('data-p', position);
-
-    // align horizontal
+    // Horizontal position
     tip.style.left = (rect.left + rect.width / 2) - (tip.offsetWidth / 2) + 'px';
 
-    // show it!
+    // Theme
+    tip.setAttribute('data-tip-theme', tooltip.getAttribute('data-tip-theme') || hasClass(tooltip, 'tip-light') ? 'light' : hasClass(tooltip, 'tip-dark') ? 'dark' : globalTheme)
+
+    // Show it!
     tip.style.opacity = 1;
   };
-}(document));
+}(window, document));
