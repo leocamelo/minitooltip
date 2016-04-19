@@ -47,9 +47,11 @@
   doc.getElementsByTagName('head')[0].appendChild(style);
   body.appendChild(tip);
 
-  if(hasClass(body, 'minitooltip')) tipsFromTitle(doc.getElementsByTagName('*'));
-
-  tipsFromTitle(doc.getElementsByClassName('tip'));
+  if(hasClass(body, 'minitooltip')){
+    tipsFromTitle(doc.getElementsByTagName('*'));
+  }else{
+    tipsFromTitle(doc.getElementsByClassName('tip'));
+  }
 
   doc.onmouseover = function(e){
     // Check if it's a tooltip
