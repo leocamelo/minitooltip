@@ -48,7 +48,7 @@ If you want, it is also possible to work with data-attributes
 </ul>
 ```
 
-## Stying
+## Styling
 
 ### Setting the global theme
 The default global theme is Dark, but you can change it adding the 'minitooltip-light' class on your body tag
