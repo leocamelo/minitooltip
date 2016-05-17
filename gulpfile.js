@@ -11,7 +11,7 @@ gulp.task('uglify', function(){
   .pipe(gulp.dest('./'));
 });
 
-gulp.task('webserver', function() {
+gulp.task('webserver', function(){
   gulp.src('./')
   .pipe(webserver({
     livereload: true,

@@ -1,8 +1,9 @@
-/*! MiniTooltip v0.2.2 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
+/*! MiniTooltip v0.2.3 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
 
 (function(win, doc){
   'use strict';
 
+  var i, l;
   var target;
   var tipLeft;
   var tipWidth;
@@ -14,6 +15,7 @@
 
   var glue = 9;
   var body = doc.body;
+  var html = doc.documentElement;
   var tip = doc.createElement('div');
   var style = doc.createElement('style');
   var css = '#tip{display:block;opacity:0;position:absolute;top:0;z-index:9999;' +
@@ -29,17 +31,20 @@
   '[data-tip-theme=dark]:after{border-bottom-color:#333}#tip[data-tip-position=down]' +
   '[data-tip-theme=light]:after{border-bottom-color:#eee}';
 
-  var winWidth = doc.documentElement.clientWidth;
+  var winWidth = html.clientWidth;
   var globalTheme = hasClass(body, 'minitooltip-light') ? 'light' : 'dark';
 
+  function addEvent(el, ev, fn){
+    el.addEventListener ? el.addEventListener(ev, fn) : el.attachEvent('on' + ev, fn);
+  }
   function getTip(el){
     return el.getAttribute('data-tip');
   }
   function hasClass(el, cl){
     return (' ' + el.className + ' ').indexOf(' ' + cl + ' ') > -1;
   }
-  function recursiveTipped(target){
-    return !target || target == body ? false : getTip(target) ? target : recursiveTipped(target.parentElement);
+  function recursiveTipped(el){
+    return !el || el == body ? false : getTip(el) ? el : recursiveTipped(el.parentNode);
   }
   function px(value){
     return value + 'px';
@@ -54,24 +59,24 @@
   body.appendChild(tip);
 
   tipsFromTitle = hasClass(body, 'minitooltip') ? doc.getElementsByTagName('*') : doc.getElementsByClassName('tip');
-  for(var i = 0, l = tipsFromTitle.length; i < l; i++){
+  for(i = 0, l = tipsFromTitle.length; i < l; i++){
     if(tipsFromTitle[i].title && !getTip(tipsFromTitle[i])){
       tipsFromTitle[i].setAttribute('data-tip', tipsFromTitle[i].title);
       tipsFromTitle[i].removeAttribute('title');
     }
   }
 
-  win.addEventListener('resize', function(){
-    winWidth = doc.documentElement.clientWidth;
+  addEvent(win, 'resize', function(){
+    winWidth = html.clientWidth;
   });
 
-  doc.addEventListener('mouseover', function(e){
+  addEvent(doc, 'mouseover', function(e){
     // Check if it's a tooltip
     if(typeof e.path == 'undefined'){
       target = recursiveTipped(e.target);
     }else{
       target = false;
-      for(var i = 0, l = e.path.length - 4; i < l; i++){
+      for(i = 0, l = e.path.length - 4; i < l; i++){
         if(getTip(e.path[i])){
           target = e.path[i];
           break;
@@ -82,13 +87,13 @@
     // Guard clause
     if(!target){
       tip.style.opacity = 0;
-      return false;
+      return;
     }
 
     tip.textContent = getTip(target);
     tipHalfWidth = tip.offsetWidth / 2;
     targetRect = target.getBoundingClientRect();
-    targetPosX = targetRect.left + (targetRect.width / 2);
+    targetPosX = targetRect.left + (target.offsetWidth / 2);
 
     // Horizontal position
     if(targetPosX - tipHalfWidth <= 0){
@@ -106,7 +111,7 @@
 
     // Vertical position
     tipPosition = target.getAttribute('data-tip-position') || hasClass(target, 'tip-down') ? 'down' : hasClass(target, 'tip-up') ? 'up' : targetRect.top - 40 <= 0 ? 'down' : 'up';
-    tip.style.top = px(targetRect.top + (tipPosition == 'up' ? win.scrollY - tip.offsetHeight - glue : win.scrollY + targetRect.height + glue));
+    tip.style.top = px(targetRect.top + (tipPosition == 'up' ? win.scrollY - tip.offsetHeight - glue : win.scrollY + target.offsetHeight + glue));
     tip.setAttribute('data-tip-position', tipPosition);
 
     // Theme
