@@ -1,4 +1,4 @@
-/*! MiniTooltip v0.2.5 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
+/*! MiniTooltip v0.2.6 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
 
 (function(win, doc){
   'use strict';
@@ -23,8 +23,8 @@
 
   var css = {
     '#tip': {
-      display: 'block',
       opacity: 0,
+      display: 'block',
       position: 'absolute',
       top: 0,
       zIndex: 9999,
@@ -41,14 +41,6 @@
       '-mozBoxSizing': 'border-box',
       boxSizing: 'border-box',
     },
-    '#tip[data-tip-theme=dark]': {
-      background: '#333',
-      color: '#fff'
-    },
-    '#tip[data-tip-theme=light]': {
-      background: '#eee',
-      color: '#222',
-    },
     '#tip:after': {
       content: '""',
       width: 0,
@@ -57,33 +49,23 @@
       left: '50%',
       marginLeft: px(-8),
       border: '8px solid transparent'
-    },
-    '#tip[data-tip-position=up]:after': {
-      top: '100%'
-    },
-    '#tip[data-tip-position=up][data-tip-theme=dark]:after': {
-      borderTopColor: '#333'
-    },
-    '#tip[data-tip-position=up][data-tip-theme=light]:after': {
-      borderTopColor: '#eee'
-    },
-    '#tip[data-tip-position=down]:after': {
-      bottom: '100%'
-    },
-    '#tip[data-tip-position=down][data-tip-theme=dark]:after': {
-      borderBottomColor: '#333'
-    },
-    '#tip[data-tip-position=down][data-tip-theme=light]:after': {
-      borderBottomColor: '#eee'
     }
   };
 
-  function each(list, fn){
-    var i = -1, l = list.length;
-    while(++i < l) fn(list[i]);
+  function each(arr, fn){
+    var i = -1, l = arr.length;
+    while(++i < l) fn(arr[i]);
   }
   function addEvent(el, ev, fn){
     el.addEventListener ? el.addEventListener(ev, fn) : el.attachEvent('on' + ev, fn);
+  }
+  function getEl(q){
+    var criteria = 'Tag';
+    if(q.charAt(0) == '.'){
+      q = q.substr(1);
+      criteria = 'Class';
+    }
+    return doc['getElementsBy' + criteria + 'Name'](q);
   }
   function getData(el, key, alt){
     return el.getAttribute('data-tip-' + key) || alt;
@@ -101,42 +83,61 @@
   function recursiveTipped(el){
     return !el || el == body ? false : getTip(el) ? el : recursiveTipped(el.parentNode);
   }
-  function px(value){
-    return value + 'px';
+  function px(val){
+    return val + 'px';
   }
   function setTipsDataFromClass(scope, alts){
     each(alts, function(a){
-      each(doc.getElementsByClassName('tip-' + a), function(el){
+      each(getEl('.tip-' + a), function(el){
         setData(el, scope, a);
       });
     });
   }
-  function toDash(str){
+  function tipMark(data){
+    return '#tip' + mapObjJoin(data, '', function(k, v){
+      return '[data-tip-' + k + '=' + v + ']';
+    });
+  }
+  function tipMarkAfter(data){
+    return tipMark(data) + ':after';
+  }
+  function toKebabCase(str){
     return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
   }
-  function mapObj(obj, glue, fn){
+  function mapObjJoin(obj, glue, fn){
     var k = Object.keys(obj), i = -1,
     l = k.length, res = new Array(l);
     while(++i < l) res[i] = fn(k[i], obj[k[i]]);
     return res.join(glue);
   }
   function compileCSS(css){
-    return mapObj(css, '', function(k1, v1){
-      return k1 + '{' + mapObj(v1, ';', function(k2, v2){
-        return toDash(k2) + ':' + v2;
+    return mapObjJoin(css, '', function(k1, v1){
+      return k1 + '{' + mapObjJoin(v1, ';', function(k2, v2){
+        return toKebabCase(k2) + ':' + v2;
       }) + '}';
     });
   }
+
+  css[tipMark({ theme: 'dark' })] = { background: '#333', color: '#fff' };
+  css[tipMark({ theme: 'light' })] = { background: '#eee', color: '#222' };
+
+  css[tipMarkAfter({ position: 'up' })] = { top: '100%' };
+  css[tipMarkAfter({ position: 'up', theme: 'dark' })] = { borderTopColor: '#333' };
+  css[tipMarkAfter({ position: 'up', theme: 'light' })] = { borderTopColor: '#eee' };
+
+  css[tipMarkAfter({ position: 'down' })] = { bottom: '100%' };
+  css[tipMarkAfter({ position: 'down', theme: 'dark' })] = { borderBottomColor: '#333' };
+  css[tipMarkAfter({ position: 'down', theme: 'light' })] = { borderBottomColor: '#eee' };
 
   tip.id = 'tip';
   style.type = 'text/css';
   style.media = 'screen';
   style.appendChild(doc.createTextNode(compileCSS(css)));
 
-  doc.getElementsByTagName('head')[0].appendChild(style);
+  getEl('head')[0].appendChild(style);
   body.appendChild(tip);
 
-  each(hasClass(body, 'minitooltip') ? doc.getElementsByTagName('*') : doc.getElementsByClassName('tip'), function(el){
+  each(hasClass(body, 'minitooltip') ? getEl('*') : getEl('.tip'), function(el){
     if(el.title && !getTip(el)){
       el.setAttribute('data-tip', el.title);
       el.removeAttribute('title');
