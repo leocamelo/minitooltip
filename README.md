@@ -59,7 +59,7 @@ The default global theme is Dark, but you can change it adding the 'minitooltip-
 ```
 
 ### Setting a single tooltip theme
-You can set the theme of a single tooltip with the classes 'tooltip-dark' and 'tooltip-light'. And, if you prefer, can define this with data attributes
+You can set the theme of a single tooltip with the classes 'tip-dark' and 'tip-light'. And, if you prefer, can define this with data attributes
 ```html
 <h1 class="tip tip-dark" title="A dark tip here">foo</h1>
 <h2 data-tip="A light tip here" data-tip-theme="light">bar</h2>
