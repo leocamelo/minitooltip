@@ -1,7 +1,7 @@
 {
   "name": "minitooltip",
   "main": "minitooltip.min.js",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "The tooltip solution for minimalists",
   "license": "MIT",
   "authors": [

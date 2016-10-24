@@ -1,4 +1,4 @@
-/*! MiniTooltip v0.2.4 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
+/*! MiniTooltip v0.2.5 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
 
 (function(win, doc){
   'use strict';
@@ -17,21 +17,66 @@
   var html = doc.documentElement;
   var tip = doc.createElement('div');
   var style = doc.createElement('style');
-  var css = '#tip{display:block;opacity:0;position:absolute;top:0;z-index:9999;' +
-  'text-align:center;padding:6px;font-family:sans-serif;font-size:12px;font-weight:lighter;' +
-  'pointer-events:none;border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px;' +
-  'box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box}' +
-  '#tip[data-tip-theme=dark]{background:#333;color:#fff}#tip[data-tip-theme=light]' +
-  '{background:#eee;color:#222}#tip:after{content:"";width:0;height:0;position:absolute;' +
-  'left:50%;margin-left:-8px;border:8px solid transparent}#tip[data-tip-position=up]:after' +
-  '{top:100%}#tip[data-tip-position=up][data-tip-theme=dark]:after{border-top-color:#333}' +
-  '#tip[data-tip-position=up][data-tip-theme=light]:after{border-top-color:#eee}' +
-  '#tip[data-tip-position=down]:after{bottom:100%}#tip[data-tip-position=down]' +
-  '[data-tip-theme=dark]:after{border-bottom-color:#333}#tip[data-tip-position=down]' +
-  '[data-tip-theme=light]:after{border-bottom-color:#eee}';
 
   var winWidth = html.clientWidth;
   var globalTheme = hasClass(body, 'minitooltip-light') ? 'light' : 'dark';
+
+  var css = {
+    '#tip': {
+      display: 'block',
+      opacity: 0,
+      position: 'absolute',
+      top: 0,
+      zIndex: 9999,
+      textAlign: 'center',
+      padding: px(6),
+      fontFamily: 'sans-serif',
+      fontSize: px(12),
+      fontWeight: 'lighter',
+      pointerEvents: 'none',
+      '-webkitBorderRadius': px(2),
+      '-mozBorderRadius': px(2),
+      borderRadius: px(2),
+      '-webkitBoxSizing': 'border-box',
+      '-mozBoxSizing': 'border-box',
+      boxSizing: 'border-box',
+    },
+    '#tip[data-tip-theme=dark]': {
+      background: '#333',
+      color: '#fff'
+    },
+    '#tip[data-tip-theme=light]': {
+      background: '#eee',
+      color: '#222',
+    },
+    '#tip:after': {
+      content: '""',
+      width: 0,
+      height: 0,
+      position: 'absolute',
+      left: '50%',
+      marginLeft: px(-8),
+      border: '8px solid transparent'
+    },
+    '#tip[data-tip-position=up]:after': {
+      top: '100%'
+    },
+    '#tip[data-tip-position=up][data-tip-theme=dark]:after': {
+      borderTopColor: '#333'
+    },
+    '#tip[data-tip-position=up][data-tip-theme=light]:after': {
+      borderTopColor: '#eee'
+    },
+    '#tip[data-tip-position=down]:after': {
+      bottom: '100%'
+    },
+    '#tip[data-tip-position=down][data-tip-theme=dark]:after': {
+      borderBottomColor: '#333'
+    },
+    '#tip[data-tip-position=down][data-tip-theme=light]:after': {
+      borderBottomColor: '#eee'
+    }
+  };
 
   function each(list, fn){
     var i = -1, l = list.length;
@@ -66,11 +111,27 @@
       });
     });
   }
+  function toDash(str){
+    return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+  }
+  function mapObj(obj, glue, fn){
+    var k = Object.keys(obj), i = -1,
+    l = k.length, res = new Array(l);
+    while(++i < l) res[i] = fn(k[i], obj[k[i]]);
+    return res.join(glue);
+  }
+  function compileCSS(css){
+    return mapObj(css, '', function(k1, v1){
+      return k1 + '{' + mapObj(v1, ';', function(k2, v2){
+        return toDash(k2) + ':' + v2;
+      }) + '}';
+    });
+  }
 
   tip.id = 'tip';
   style.type = 'text/css';
   style.media = 'screen';
-  style.appendChild(doc.createTextNode(css));
+  style.appendChild(doc.createTextNode(compileCSS(css)));
 
   doc.getElementsByTagName('head')[0].appendChild(style);
   body.appendChild(tip);
