@@ -1,4 +1,4 @@
-/*! MiniTooltip v0.2.6 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
+/*! MiniTooltip v0.2.7 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
 
 (function(win, doc){
   'use strict';
@@ -34,11 +34,11 @@
       fontSize: px(12),
       fontWeight: 'lighter',
       pointerEvents: 'none',
-      '-webkitBorderRadius': px(2),
-      '-mozBorderRadius': px(2),
+      WebkitBorderRadius: px(2),
+      MozBorderRadius: px(2),
       borderRadius: px(2),
-      '-webkitBoxSizing': 'border-box',
-      '-mozBoxSizing': 'border-box',
+      WebkitBoxSizing: 'border-box',
+      MozBoxSizing: 'border-box',
       boxSizing: 'border-box',
     },
     '#tip:after': {
@@ -102,7 +102,7 @@
     return tipMark(data) + ':after';
   }
   function toKebabCase(str){
-    return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    return str.replace(/([A-Z])/g, '-$1').toLowerCase();
   }
   function mapObjJoin(obj, glue, fn){
     var k = Object.keys(obj), i = -1,
@@ -137,7 +137,7 @@
   getEl('head')[0].appendChild(style);
   body.appendChild(tip);
 
-  each(hasClass(body, 'minitooltip') ? getEl('*') : getEl('.tip'), function(el){
+  each(getEl(hasClass(body, 'minitooltip') ? '*' : '.tip'), function(el){
     if(el.title && !getTip(el)){
       el.setAttribute('data-tip', el.title);
       el.removeAttribute('title');
