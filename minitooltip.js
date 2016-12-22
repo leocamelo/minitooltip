@@ -1,4 +1,4 @@
-/*! MiniTooltip v0.2.7 (github.com/leonardocamelo/minitooltip) - Licence: MIT */
+/*! MiniTooltip v0.2.7 (github.com/leocamelo/minitooltip) - Licence: MIT */
 
 (function(win, doc){
   'use strict';

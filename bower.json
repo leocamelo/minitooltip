@@ -12,7 +12,7 @@
     "tooltip",
     "javascript"
   ],
-  "homepage": "https://github.com/leonardocamelo/minitooltip",
+  "homepage": "https://github.com/leocamelo/minitooltip",
   "ignore": [
     "**/.*",
     "node_modules",
