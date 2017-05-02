@@ -164,7 +164,7 @@
   });
 
   addEvent(doc, "mouseover", function(ev) {
-    // Check if it"s a tooltip
+    // Check if it's a tooltip
     var target = null;
     if (typeof ev.path == "undefined") {
       target = recursiveTipped(ev.target);
