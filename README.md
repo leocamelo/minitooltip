@@ -7,12 +7,17 @@ A minimalist tooltip solution, perfect for fast and beautiful websites
 
 ## Installing
 
+### yarn
+```bash
+$ yarn add minitooltip
+```
+
 ### npm
 ```bash
 $ npm install minitooltip --save
 ```
 
-### Bower
+### bower
 ```bash
 $ bower install minitooltip --save
 ```
@@ -66,7 +71,7 @@ You can set the theme of a single tooltip with the classes 'tip-dark' and 'tip-l
 ```
 
 ### Hacking the themes
-The minitooltip themes is just css, and you can override his styles with more css
+The minitooltip themes is just css, so you can override his styles with more css
 ```css
 #tip{ background: red !important; }
 #tip[data-tip-position=up]:after{ border-top-color: red !important; }
@@ -77,4 +82,4 @@ The minitooltip themes is just css, and you can override his styles with more cs
 Like the library? Feel free to contribute! Make your fork, submit your pull request and help to grow it
 
 ## License
-minitooltip is freely distributable under the [MIT license](https://github.com/leonardocamelo/minitooltip/blob/master/LICENSE)
+minitooltip is freely distributable under the [MIT license](https://github.com/leocamelo/minitooltip/blob/master/LICENSE)

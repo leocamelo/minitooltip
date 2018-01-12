@@ -4,20 +4,19 @@
   "version": "0.2.7",
   "description": "The tooltip solution for minimalists",
   "license": "MIT",
-  "author": "Leonardo Camelo <leonardocamelo.nave@gmail.com>",
+  "author": "@leocamelo <leonardocamelo.nave@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/leonardocamelo/minitooltip.git"
+    "url": "git+https://github.com/leocamelo/minitooltip.git"
   },
   "keywords": [
     "minitooltip",
-    "tooltip",
-    "javascript"
+    "tooltip"
   ],
   "bugs": {
-    "url": "https://github.com/leonardocamelo/minitootip/issues"
+    "url": "https://github.com/leocamelo/minitootip/issues"
   },
-  "homepage": "https://github.com/leonardocamelo/minitootip#readme",
+  "homepage": "https://github.com/leocamelo/minitootip#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",

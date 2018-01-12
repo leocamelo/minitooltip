@@ -1,6 +1,6 @@
 /*! MiniTooltip v0.2.7 (github.com/leocamelo/minitooltip) - Licence: MIT */
 
-(function(win, doc) {
+;(function(win, doc) {
   "use strict";
 
   var body = doc.body;

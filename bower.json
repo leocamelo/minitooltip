@@ -5,12 +5,11 @@
   "description": "The tooltip solution for minimalists",
   "license": "MIT",
   "authors": [
-    "Leonardo Camelo <leonardocamelo.nave@gmail.com>"
+    "@leocamelo <leonardocamelo.nave@gmail.com>"
   ],
   "keywords": [
     "minitooltip",
-    "tooltip",
-    "javascript"
+    "tooltip"
   ],
   "homepage": "https://github.com/leocamelo/minitooltip",
   "ignore": [
