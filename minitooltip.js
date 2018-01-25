@@ -58,7 +58,7 @@
     }
   }
   function getEl(query) {
-    if (query.charAt(0) == ".") {
+    if (query.charAt(0) === ".") {
       return doc.getElementsByClassName(query.substr(1));
     }
     return doc.getElementsByTagName(query);
@@ -77,7 +77,7 @@
     return (" " + el.className + " ").indexOf(" " + cl + " ") > -1;
   }
   function recursiveTipped(el) {
-    if (!el || el == body) {
+    if (!el || el === body) {
       return null;
     } else if (getTip(el)) {
       return el;
@@ -103,7 +103,7 @@
     return tipMark(data) + ":after";
   }
   function tipTop(position, target, glue) {
-    if (position == "up") {
+    if (position === "up") {
       return win.scrollY - tip.offsetHeight - glue;
     }
     return win.scrollY + target.offsetHeight + glue;
@@ -128,6 +128,9 @@
         return toKebabCase(key2) + ":" + val2;
       }) + "}";
     });
+  }
+  function genTargetPosition(rect) {
+    return rect.top - 40 <= 0 ? "down" : null;
   }
 
   css[tipMark({ theme: "dark" })] = { background: "#333", color: "#fff" };
@@ -166,7 +169,7 @@
   addEvent(doc, "mouseover", function(ev) {
     // Check if it's a tooltip
     var target = null;
-    if (typeof ev.path == "undefined") {
+    if (typeof ev.path === "undefined") {
       target = recursiveTipped(ev.target);
     } else {
       var index = -1;
@@ -207,8 +210,7 @@
     tip.style.width = tipWidth;
 
     // Vertical position
-    var targetPositionCriteria = targetRect.top - 40 <= 0 ? "down" : "up";
-    var targetPosition = getData(target, "position", targetPositionCriteria);
+    var targetPosition = genTargetPosition(targetRect) || getData(target, "position", "up");
     var tipPosition = setData(tip, "position", targetPosition);
     tip.style.top = px(targetRect.top + tipTop(tipPosition, target, 9));
 
