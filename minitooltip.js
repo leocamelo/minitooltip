@@ -1,4 +1,4 @@
-/*! MiniTooltip v0.2.7 (github.com/leocamelo/minitooltip) - Licence: MIT */
+/*! MiniTooltip v0.2.8 (github.com/leocamelo/minitooltip) - Licence: MIT */
 
 ;(function(win, doc) {
   "use strict";
@@ -9,6 +9,7 @@
   var style = doc.createElement("style");
 
   var winWidth = html.clientWidth;
+  var winHeight = html.clientHeight;
   var globalTheme = hasClass(body, "minitooltip-light") ? "light" : "dark";
 
   var css = {
@@ -88,14 +89,14 @@
     return val + "px";
   }
   function setTipsDataFromClass(scope, alts) {
-    each(alts, function(alt) {
-      each(getEl(".tip-" + alt), function(el) {
+    each(alts, function (alt) {
+      each(getEl(".tip-" + alt), function (el) {
         setData(el, scope, alt);
       });
     });
   }
   function tipMark(data) {
-    return "#tip" + mapObjJoin(data, "", function(key, val) {
+    return "#tip" + mapObjJoin(data, "", function (key, val) {
       return "[data-tip-" + key + "=" + val + "]";
     });
   }
@@ -123,14 +124,17 @@
     return res.join(glue);
   }
   function compileCSS(css) {
-    return mapObjJoin(css, "", function(key1, val1) {
-      return key1 + "{" + mapObjJoin(val1, ";", function(key2, val2) {
+    return mapObjJoin(css, "", function (key1, val1) {
+      return key1 + "{" + mapObjJoin(val1, ";", function (key2, val2) {
         return toKebabCase(key2) + ":" + val2;
       }) + "}";
     });
   }
   function genTargetPosition(rect) {
-    return rect.top - 40 <= 0 ? "down" : null;
+    var offset = 40;
+    if (rect.bottom + offset >= winHeight) return "up";
+    if (rect.top - offset <= 0) return "down";
+    return null;
   }
 
   css[tipMark({ theme: "dark" })] = { background: "#333", color: "#fff" };
@@ -152,7 +156,7 @@
   getEl("head")[0].appendChild(style);
   body.appendChild(tip);
 
-  each(getEl(hasClass(body, "minitooltip") ? "*" : ".tip"), function(el) {
+  each(getEl(hasClass(body, "minitooltip") ? "*" : ".tip"), function (el) {
     if (el.title && !getTip(el)) {
       el.setAttribute("data-tip", el.title);
       el.removeAttribute("title");
@@ -162,11 +166,12 @@
   setTipsDataFromClass("position", ["up", "down"]);
   setTipsDataFromClass("theme", ["light", "dark"]);
 
-  addEvent(win, "resize", function() {
+  addEvent(win, "resize", function () {
     winWidth = html.clientWidth;
+    winHeight = html.clientHeight;
   });
 
-  addEvent(doc, "mouseover", function(ev) {
+  addEvent(doc, "mouseover", function (ev) {
     // Check if it's a tooltip
     var target = null;
     if (typeof ev.path === "undefined") {
@@ -189,6 +194,7 @@
       return;
     }
 
+    // Set tip text
     tip.textContent = getTip(target);
 
     var tipHalfWidth = tip.offsetWidth / 2;
