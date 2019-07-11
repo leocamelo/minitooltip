@@ -5,21 +5,20 @@ var webserver = require('gulp-webserver');
 
 var src = 'minitooltip.js';
 
-gulp.task('uglify', function () {
-  gulp.src(src)
-  .pipe(uglify({ preserveComments: 'license' }))
-  .pipe(rename({ extname: '.min.js' }))
-  .pipe(gulp.dest('./'));
-});
+function js() {
+  return gulp
+    .src(src)
+    .pipe(uglify({ output: { comments: /^!/ } }))
+    .pipe(rename({ extname: '.min.js' }))
+    .pipe(gulp.dest('./'));
+}
 
-gulp.task('webserver', function () {
-  gulp.src('./')
-  .pipe(webserver({
-    livereload: true,
-    open: '/example'
-  }));
-});
+function web() {
+  return gulp
+    .src('./')
+    .pipe(webserver({ livereload: true, open: '/example' }));
+}
 
-gulp.task('default', ['uglify', 'webserver'], function () {
-  gulp.watch(src, ['uglify']);
-});
+exports.js = js;
+exports.web = web;
+exports.default = gulp.parallel(js, web);
