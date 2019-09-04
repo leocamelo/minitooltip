@@ -21,8 +21,6 @@
     "gulp": "^4.0.2",
     "gulp-rename": "^1.4.0",
     "gulp-uglify": "^3.0.2",
-    "gulp-webserver": "^0.9.1",
-    "open": "^6.4.0",
-    "lodash.template": "^4.5.0"
+    "gulp-webserver": "^0.9.1"
   }
 }
